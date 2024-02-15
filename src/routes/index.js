@@ -1,50 +1,69 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-import { createDrawerNavigator } from "@react-navigation/drawer";
-
-
-import StackRoutes from './stackRoutes';
-import Sobre from '../pages/Sobre';
+import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import StackRoutes from '../../src/routes/stackRoutes';
 import Contato from '../pages/Contato';
-import CustomDrawer from '../components/customDrawer';
+import Home from '../pages/Home';
 
+const Tab = createBottomTabNavigator();
 
-const Drawer = createDrawerNavigator();
-
-export default function Routes() {
+const TabRoutes = () => {
   return (
-    <Drawer.Navigator
-    drawerContent={CustomDrawer}>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: 'black',
+        tabBarInactiveTintColor: 'white',
+        tabBarStyle: {
+          backgroundColor: '#ff1493',
+        },
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarLabel: 'Inicio',
+          headerTintColor: '#ffffff',
+          headerStyle: {
+            backgroundColor: '#ff1493',
+          },
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome5 name="home" color={color} size={size} />
+          ),
+        }}
+      />
 
-      <Drawer.Screen
-        name='HomeStack'
+      <Tab.Screen
+        name="Cursos"
         component={StackRoutes}
-
+        options={{
+          title: 'Cursos',
+          headerTintColor: '#ffffff',
+          headerStyle: {
+            backgroundColor: '#ff1493',
+          },
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome5 name="briefcase" color={color} size={size} />
+          ),
+        }}
       />
 
-      <Drawer.Screen
-        name='Sobre'
-        component={Sobre}
-
-      />
-      <Drawer.Screen
-        name='Contato'
+      <Tab.Screen
+        name="Contato"
         component={Contato}
-
+        options={{
+          title: 'Contato',
+          headerTintColor: '#ffffff',
+          headerStyle: {
+            backgroundColor: '#ff1493',
+          },
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome5 name="address-card" color={color} size={size} />
+          ),
+        }}
       />
-
-    </Drawer.Navigator>
-  )
+    </Tab.Navigator>
+  );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default TabRoutes;

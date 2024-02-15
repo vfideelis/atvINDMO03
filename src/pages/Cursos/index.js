@@ -1,13 +1,22 @@
+// CursosScreen.js
+
 import React from 'react';
-import { View, Text, Image, ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const CursoCard = ({ title, description, imageSource }) => {
+  const navigation = useNavigation();
+
+  const navigateToDetails = () => {
+    navigation.navigate('Detalhe', { nome: title, detalhes: description });
+  };
+
   return (
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={navigateToDetails}>
       <Image source={imageSource} style={styles.image} resizeMode="cover" />
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.description}>{description}</Text>
-    </View>
+      {/* Removendo a descrição aqui para mostrar apenas quando clicar no curso */}
+    </TouchableOpacity>
   );
 };
 
